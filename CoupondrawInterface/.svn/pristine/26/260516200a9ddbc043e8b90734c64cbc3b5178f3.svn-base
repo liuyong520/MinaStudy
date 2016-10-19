@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--配置引入-->
+    <!--<import resource="classpath*:context/spring-mybaties.xml"/>-->
+    <!--<import resource="classpath*:context/spring-redis.xml"/>-->
+
+    <!--注解支持-->
+    <context:component-scan base-package="com.nnk.coupon">
+        <!--<context:exclude-filter type="annotation" expression=""-->
+    </context:component-scan>
+
+
+    <!--线程池-->
+    <bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="${threadPoolrecharge.corePoolSize}" />
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="${threadPoolrecharge.maxPoolSize}" />
+        <!-- 队列最大长度 >=mainExecutor.maxSize -->
+        <property name="queueCapacity" value="${threadPoolrecharge.queueCapacity}" />
+        <!-- 线程池维护线程所允许的空闲时间 -->
+        <property name="keepAliveSeconds" value="${threadPoolrecharge.keepAliveSeconds}" />
+
+        <!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+        <property name="rejectedExecutionHandler">
+            <bean class="${threadPoolrecharge.rejectedExecutionHandler}" />
+        </property>
+    </bean>
+    <!--配置文件加载器，引入配置文件-->
+    <bean id="properConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <!--测试目录下-->
+            <!--<list>-->
+            <!--<value>classpath:jdbc.properties</value>-->
+            <!--<value>classpath:redis.properties</value>-->
+            <!--</list>-->
+            <!--生产 环境配置-->
+            <list>
+                <value>file:config/ThreadPools.properties</value>
+                <value>file:config/System.properties</value>
+                <value>file:config/socket.properties</value>
+            </list>
+        </property>
+        <!--<property name="propertiesPersister">-->
+            <!--<bean class="com.nnk.upstream.util.MyPropertiesPersist" />-->
+        <!--</property>-->
+        <property name ="ignoreResourceNotFound" value="true"/>
+    </bean>
+    <!--资源映射-->
+    <!--<mvc:annotation-driven />-->
+    <!--<mvc:resources mapping="/assets/**" location="/assets/" />-->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+           <map>
+                <entry key="java.net.SocketAddress" value="org.apache.mina.integration.beans.InetSocketAddressEditor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="ioAcceptor"
+          class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+          init-method="bind" destroy-method="unbind">
+
+    <property name="defaultLocalAddress" value="${SocketPort}" />
+        <property name="handler" ref="SampleHandler" />
+        <property name="filterChainBuilder" ref="filterChainBuilder" />
+        <property name="reuseAddress" value="true" />
+
+    </bean>
+    <bean id="executorFilter"
+          class="org.apache.mina.filter.executor.ExecutorFilter" />
+    <bean id="mdcInjectionFilter"
+          class="org.apache.mina.filter.logging.MdcInjectionFilter">
+        <constructor-arg value="remoteAddress" />
+    </bean>
+    <bean id="codecFilter"
+          class="org.apache.mina.filter.codec.ProtocolCodecFilter">
+        <constructor-arg>
+            <!--
+                <bean
+                    class="org.apache.mina.filter.codec.textline.TextLineCodecFactory" />
+                    -->
+            <bean class="com.nnk.coupon.codec.CodeFactory"></bean>
+        </constructor-arg>
+    </bean>
+    <bean id="loggingFilter"
+          class="org.apache.mina.filter.logging.LoggingFilter" />
+    <bean id="SampleHandler" class="com.nnk.coupon.adapter.MessgageHandler" />
+    <!--boss server  -->
+    <bean id="bossSampleHandler" class="com.nnk.coupon.adapter.HandlerOne" />
+
+    <bean id="filterChainBuilder"
+          class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder">
+        <property name="filters">
+            <map>
+                <entry key="executor" value-ref="executorFilter" />
+                <entry key="mdcInjectionFilter"
+                       value-ref="mdcInjectionFilter" />
+                <entry key="codecFilter" value-ref="codecFilter" />
+                <entry key="loggingFilter" value-ref="loggingFilter" />
+            </map>
+        </property>
+    </bean>
+    <bean id="systemConfig" class="com.nnk.coupon.SystemConfig">
+        <property name="serviceAppname" value="${system.serviceAppname}"/>
+        <property name="useType" value="${system.useType}"/>
+        <property name="encrypt" value="${system.encrypt}"/>
+    </bean>
+    <bean id="CouponService" class="com.nnk.coupon.service.CouponService">
+        <property name="systemConfig" ref="systemConfig"></property>
+    </bean>
+    <bean id="SpringContextUtils" class="com.nnk.coupon.common.SpringContextUtils"/>
+</beans>

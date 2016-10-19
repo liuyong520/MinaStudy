@@ -1,0 +1,5 @@
+threadPoolrecharge.corePoolSize=1
+threadPoolrecharge.maxPoolSize=2
+threadPoolrecharge.queueCapacity=2
+threadPoolrecharge.keepAliveSeconds=300
+threadPoolrecharge.rejectedExecutionHandler=java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy

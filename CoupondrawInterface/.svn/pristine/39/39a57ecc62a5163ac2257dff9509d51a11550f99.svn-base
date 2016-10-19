@@ -1,0 +1,122 @@
+package com.nnk.coupon.controller;
+
+import com.alibaba.fastjson.JSONObject;
+import com.nnk.coupon.SystemConfig;
+import com.nnk.coupon.common.ReflectUtils;
+import com.nnk.coupon.common.SignSecurityUtlis;
+import com.nnk.coupon.entity.*;
+import com.nnk.coupon.service.CouponService;
+import com.nnk.coupon.service.GetSignKeyService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: y
+ * Date: 2016/6/30
+ * Time: 15:47
+ * email: xxydliuy@163.com
+ * To change this template use File | Settings | File Templates.
+ */
+@Controller
+@RequestMapping("/coupon")
+public class HttpInterfaceController {
+    public static final Logger log = Logger.getLogger(HttpInterfaceController.class);
+    @Autowired
+    private SystemConfig systemConfig;
+    @Autowired
+    private CouponService service;
+    @RequestMapping(value = "/getCoupon",produces = "text/html;charset=GBK")
+    @ResponseBody
+    public String getCoupon(CouponObtainRequest request){
+        try {
+            log.info("http请求：[获取优惠券]" + request);
+
+            String src = ReflectUtils.getkeyValueString(request, "=", "&", "Sign");
+            src = src +"&Key=";
+            String merid = request.getMerID();
+            String meraccount = merid.substring(0, 1) + "00000" + merid.substring(1, merid.length());
+            String key = GetSignKeyService.getSignkey(merid, meraccount);
+            if (SignSecurityUtlis.checkSign(src, key, request.getSign())) {
+                CouponObtainResponse response = service.getCoupon(request);
+                String respsrc = ReflectUtils.getkeyValueString(response, "=", "&", "Sign");
+                respsrc = respsrc +"&Key=";
+                String sign = SignSecurityUtlis.sign(respsrc, key);
+                response.setSign(sign);
+                return JSONObject.toJSONString(response);
+            } else {
+                return ResponseHttp(request,"2999","签名错误");
+            }
+        }catch (Exception e){
+            return ResponseHttp(request,"2999","请求参数错误");
+        }
+
+
+    }
+
+    @RequestMapping(value = "/queryCouponByCardId",produces = "text/html;charset=GBK")
+    @ResponseBody
+    public String queryCouponByCardId(CouponQueryByCardRequest request){
+        try {
+            log.info("http请求：[查询优惠券CardId]" + request);
+            String src = ReflectUtils.getkeyValueString(request, "=", "&", "Sign");
+            src = src +"&Key=";
+            String merid = request.getMerID();
+            String meraccount = merid.substring(0, 1) + "00000" + merid.substring(1, merid.length());
+            String key = GetSignKeyService.getSignkey(merid, meraccount);
+            if (SignSecurityUtlis.checkSign(src, key, request.getSign())) {
+                CouponQueryByCardResponse response = service.queryCouponByCardId(request);
+                String respsrc = ReflectUtils.getkeyValueString(response, "=", "&", "Sign");
+                respsrc = respsrc +"&Key=";
+                String sign = SignSecurityUtlis.sign(respsrc, key);
+                response.setSign(sign);
+                return JSONObject.toJSONString(response);
+            } else {
+                return ResponseHttp(request,"2999","签名错误");
+            }
+        }catch (Exception e){
+            return ResponseHttp(request,"2999","请求参数错误");
+        }
+    }
+
+    @RequestMapping(value = "/queryCouponByUserId",produces = "text/html;charset=GBK")
+    @ResponseBody
+    public String queryCouponByUserId(CouponQueryByUserIdRequest request){
+        log.info("http请求：[查询优惠券用户id]"+request);
+       try {
+           String src = ReflectUtils.getkeyValueString(request, "=", "&", "Sign");
+           src = src +"&Key=";
+           String merid = request.getMerID();
+           String meraccount = merid.substring(0, 1) + "00000" + merid.substring(1, merid.length());
+           String key = GetSignKeyService.getSignkey(merid, meraccount);
+           if (SignSecurityUtlis.checkSign(src, key, request.getSign())) {
+               CouponQueryByUserIdResponse response = service.queryCouponByUserId(request);
+               String respsrc = ReflectUtils.getkeyValueString(response, "=", "&", "Sign");
+               respsrc = respsrc +"&Key=";
+               String sign = SignSecurityUtlis.sign(respsrc, key);
+               response.setSign(sign);
+               return JSONObject.toJSONString(response);
+           } else {
+               return ResponseHttp(request,"2999","签名错误");
+           }
+       }catch (Exception e){
+           return ResponseHttp(request,"2999","请求参数错误");
+       }
+    }
+
+    private String ResponseHttp(IRequest request,String result,String resultMsg){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("InterfaceName",request.getInterfaceName());
+        jsonObject.put("InterfaceVersion",request.getInterfaceVersion());
+        jsonObject.put("Command",request.getCommand());
+        jsonObject.put("ReqID",request.getReqID());
+        jsonObject.put("ReqTime",request.getReqTime());
+        jsonObject.put("Result",result);
+        jsonObject.put("ReMsg",resultMsg);
+        return jsonObject.toString();
+
+    }
+}

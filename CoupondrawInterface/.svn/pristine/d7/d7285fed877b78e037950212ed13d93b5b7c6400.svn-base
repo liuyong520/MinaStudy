@@ -1,0 +1,90 @@
+import com.nnk.coupon.common.Des3Utils;
+import com.nnk.coupon.common.PostFormUtils;
+import com.nnk.coupon.common.SignSecurityUtlis;
+import org.apache.http.util.EntityUtils;
+import org.junit.Test;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: y
+ * Date: 2016/7/1
+ * Time: 8:31
+ * email: xxydliuy@163.com
+ * To change this template use File | Settings | File Templates.
+ */
+public class HttpParametersGenerators {
+    @Test
+    public void testGenarateParamenters() throws Exception {
+        TreeMap<String,String> parametersMap = new TreeMap();
+        parametersMap.put("InterfaceName","007KA_COUPON");
+        parametersMap.put("InterfaceVersion","1.0.0.1");
+        parametersMap.put("Command","001");
+        parametersMap.put("ReqID","xxxxdds4232323");
+        parametersMap.put("MerID","1200000232");
+        parametersMap.put("MerUserID","liuy");
+        parametersMap.put("MerUserPhone","13267191379");
+        parametersMap.put("Type","1");
+        parametersMap.put("CardAmt","500");
+        parametersMap.put("useType","9");
+        parametersMap.put("ReqTime","20160711083900");
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String,String> entry:parametersMap.entrySet()){
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+
+        sb.append("Key").append("=");
+        System.out.println(sb.toString());
+        parametersMap.put("Sign", SignSecurityUtlis.sign(sb.toString(),"lk839u45lqzf"));
+        String ret = EntityUtils.toString(PostFormUtils.buildEntity(parametersMap, false, "utf-8")) ;
+        System.out.println(ret);
+    }
+
+    @Test
+    public void testGenarateParamenters1() throws Exception {
+        TreeMap<String,String> parametersMap = new TreeMap();
+        parametersMap.put("InterfaceName","007KA_COUPON");
+        parametersMap.put("InterfaceVersion","1.0.0.1");
+        parametersMap.put("Command","002");
+        parametersMap.put("ReqID","xxxxdds4232323");
+        parametersMap.put("MerID","1200000232");
+        parametersMap.put("MerUserID","liuy");
+        parametersMap.put("ReqTime","20160711083900");
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String,String> entry:parametersMap.entrySet()){
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+
+        sb.append("Key").append("=");
+        System.out.println(sb.toString());
+        parametersMap.put("Sign", SignSecurityUtlis.sign(sb.toString(),"lk839u45lqzf"));
+        String ret = EntityUtils.toString(PostFormUtils.buildEntity(parametersMap, false, "utf-8")) ;
+        System.out.println(ret);
+    }
+
+
+    @Test
+    public void testGenarateParamenters2() throws Exception {
+        TreeMap<String,String> parametersMap = new TreeMap();
+        parametersMap.put("InterfaceName","007KA_COUPON");
+        parametersMap.put("InterfaceVersion","1.0.0.1");
+        parametersMap.put("Command","003");
+        parametersMap.put("ReqID","xxxxdds4232323");
+        parametersMap.put("MerID","1200000232");
+        String encode = Des3Utils.des3EncodeCBCtoString("111111111111111111111111","12345678","HongChuangSrvPwd");
+        parametersMap.put("CardNo",encode);
+        parametersMap.put("ReqTime","20160711083900");
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String,String> entry:parametersMap.entrySet()){
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+
+        sb.append("Key").append("=");
+        System.out.println(sb.toString());
+        parametersMap.put("Sign", SignSecurityUtlis.sign(sb.toString(),"lk839u45lqzf"));
+        String ret = EntityUtils.toString(PostFormUtils.buildEntity(parametersMap, false, "utf-8")) ;
+        System.out.println(ret);
+    }
+}

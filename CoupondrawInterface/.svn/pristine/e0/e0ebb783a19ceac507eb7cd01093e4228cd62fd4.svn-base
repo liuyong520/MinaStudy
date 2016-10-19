@@ -1,0 +1,138 @@
+package com.nnk.coupon.entity;
+
+import com.nnk.interfacetemplate.common.StringUtil;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: y
+ * Date: 2016/6/27
+ * Time: 15:24
+ * email: xxydliuy@163.com
+ * To change this template use File | Settings | File Templates.
+ */
+public class CouponQueryByUserIdResponse implements StringSerialable {
+    protected String InterfaceName;
+    protected String InerfaceVersion;
+    protected String Command;
+    protected String ReqID;
+    protected String Result;
+    protected String ReMsg;
+    private String CardNoList;
+    private String CardAmtList;
+    private String StateList;
+    private String DeadLineList;
+    private String TypeList;
+    protected String ReqTime;
+    protected String Sign;
+
+    public String getInterfaceName() {
+        return InterfaceName;
+    }
+
+    public void setInterfaceName(String interfaceName) {
+        InterfaceName = interfaceName;
+    }
+
+    public String getInerfaceVersion() {
+        return InerfaceVersion;
+    }
+
+    public void setInerfaceVersion(String inerfaceVersion) {
+        InerfaceVersion = inerfaceVersion;
+    }
+
+    public String getCommand() {
+        return Command;
+    }
+
+    public void setCommand(String command) {
+        Command = command;
+    }
+
+    public String getReqID() {
+        return ReqID;
+    }
+
+    public void setReqID(String reqID) {
+        ReqID = reqID;
+    }
+
+    public String getResult() {
+        return Result;
+    }
+
+    public void setResult(String result) {
+        Result = result;
+    }
+
+    public String getReMsg() {
+        return ReMsg;
+    }
+
+    public void setReMsg(String reMsg) {
+        ReMsg = reMsg;
+    }
+
+    public String getReqTime() {
+        return ReqTime;
+    }
+
+    public void setReqTime(String reqTime) {
+        ReqTime = reqTime;
+    }
+
+    public String getSign() {
+        return Sign;
+    }
+
+    public void setSign(String sign) {
+        Sign = sign;
+    }
+
+    public String getCardNoList() {
+        return CardNoList;
+    }
+
+    public void setCardNoList(String cardNoList) {
+        CardNoList = cardNoList;
+    }
+
+    public String getCardAmtList() {
+        return CardAmtList;
+    }
+
+    public void setCardAmtList(String cardAmtList) {
+        CardAmtList = cardAmtList;
+    }
+
+    public String getStateList() {
+        return StateList;
+    }
+
+    public void setStateList(String stateList) {
+        StateList = stateList;
+    }
+
+    public String getDeadLineList() {
+        return DeadLineList;
+    }
+
+    public void setDeadLineList(String deadLineList) {
+        DeadLineList = deadLineList;
+    }
+
+    public String getTypeList() {
+        return TypeList;
+    }
+
+    public void setTypeList(String typeList) {
+        TypeList = typeList;
+    }
+
+    @Override
+    public String toSocketString() {
+
+        String str = StringUtil.getAppendStrByValue(this, "Sign", "~");
+        return str;
+    }
+}

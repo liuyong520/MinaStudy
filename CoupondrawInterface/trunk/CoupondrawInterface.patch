@@ -1,0 +1,543 @@
+Index: config/log4j.properties
+===================================================================
+--- config/log4j.properties	(revision 0)
++++ config/log4j.properties	(working copy)
+@@ -0,0 +1,83 @@
++#debug>info>error
++#put debug log into console and file
++log4j.rootCategory = info,debug,info,warn,error,fatal,console,all
++log4j.additivity.error = false
++
++log4j.appender.console=org.apache.log4j.ConsoleAppender
++log4j.appender.console.layout=org.apache.log4j.PatternLayout
++log4j.appender.console.layout.ConversionPattern=%d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
++#log4j.appender.file=org.apache.log4j.FileAppender
++#make a file everyday
++#error info 
++log4j.logger.info = info
++log4j.appender.info = org.apache.log4j.DailyRollingFileAppender
++log4j.appender.info.File = /var/applog/CoupondrawInterface/Test_info
++log4j.appender.info.DatePattern='_'yyyy-MM-dd'.log'
++log4j.appender.info.Append = true
++log4j.appender.info.Threshold = INFO
++log4j.appender.info.layout = org.apache.log4j.PatternLayout
++log4j.appender.info.layout.ConversionPattern = %d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
++log4j.appender.info.filter.filter=org.apache.log4j.varia.LevelRangeFilter
++log4j.appender.info.filter.filter.LevelMin=INFO
++log4j.appender.info.filter.filter.LevelMax=INFO
++
++log4j.logger.debug = debug
++log4j.appender.debug = org.apache.log4j.DailyRollingFileAppender
++log4j.appender.debug.File = /var/applog/CoupondrawInterface/Test_debug
++log4j.appender.debug.DatePattern='_'yyyy-MM-dd'.log'
++log4j.appender.debug.Append = true
++log4j.appender.debug.Threshold = DEBUG
++log4j.appender.debug.layout = org.apache.log4j.PatternLayout
++log4j.appender.debug.layout.ConversionPattern = %d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
++log4j.appender.debug.filter.filter=org.apache.log4j.varia.LevelRangeFilter
++log4j.appender.debug.filter.filter.LevelMin=DEBUG
++log4j.appender.debug.filter.filter.LevelMax=DEBUG
++#\u8FD9\u90E8\u5206\u662F\u5173\u4E8E\u5927\u91CF\u65E5\u5FD7\u6253\u5370\u7684\u4F18\u5316\uFF0C\u7F13\u51B2\u8F93\u51FA\u65E5\u5FD7\uFF0C\u8FBE\u52308k\u624D\u8F93\u51FA\u4E00\u6B21\u65E5\u5FD7\u3002
++#log4j.appender.debug.BufferedIO=true
++#log4j.appender.debug.BufferSize=8192
++#Buffer\u5355\u4F4D\u4E3A\u5B57\u8282\uFF0C\u9ED8\u8BA4\u662F8K
++
++
++
++
++log4j.logger.warn = warn
++log4j.appender.warn = org.apache.log4j.DailyRollingFileAppender
++log4j.appender.warn.File = /var/applog/CoupondrawInterface/Test_warn
++log4j.appender.warn.DatePattern='_'yyyy-MM-dd'.log'
++log4j.appender.warn.Append = true
++log4j.appender.warn.Threshold = WARN
++log4j.appender.warn.layout = org.apache.log4j.PatternLayout
++log4j.appender.warn.layout.ConversionPattern = %d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
++log4j.appender.warn.filter.filter=org.apache.log4j.varia.LevelRangeFilter
++log4j.appender.warn.filter.filter.LevelMin=WARN
++log4j.appender.warn.filter.filter.LevelMax=WARN
++
++log4j.logger.error = error
++log4j.appender.error = org.apache.log4j.DailyRollingFileAppender
++log4j.appender.error.File = /var/applog/CoupondrawInterface/Test_error
++log4j.appender.error.DatePattern='_'yyyy-MM-dd'.log'
++log4j.appender.error.Append = true
++log4j.appender.error.Threshold = ERROR
++log4j.appender.error.layout = org.apache.log4j.PatternLayout
++log4j.appender.error.layout.ConversionPattern = %d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
++log4j.appender.error.filter.filter=org.apache.log4j.varia.LevelRangeFilter
++log4j.appender.error.filter.filter.LevelMin=ERROR
++log4j.appender.error.filter.filter.LevelMax=ERROR
++
++log4j.logger.fatal = fatal
++log4j.appender.fatal = org.apache.log4j.DailyRollingFileAppender
++log4j.appender.fatal.File = /var/applog/CoupondrawInterface/Test_fatal
++log4j.appender.fatal.DatePattern='_'yyyy-MM-dd'.log'
++log4j.appender.fatal.Append = true
++log4j.appender.fatal.Threshold = FATAL
++log4j.appender.fatal.layout = org.apache.log4j.PatternLayout
++log4j.appender.fatal.layout.ConversionPattern = %d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
++log4j.appender.fatal.filter.filter=org.apache.log4j.varia.LevelRangeFilter
++log4j.appender.fatal.filter.filter.LevelMin=FATAL
++log4j.appender.fatal.filter.filter.LevelMax=FATAL
++
++log4j.appender.all=org.apache.log4j.DailyRollingFileAppender
++log4j.appender.all.File=/var/applog/CoupondrawInterface/Test_all
++log4j.appender.all.DatePattern='_'yyyy-MM-dd'.log'
++log4j.appender.all.layout=org.apache.log4j.PatternLayout
++log4j.appender.all.layout.ConversionPattern= %d{yyyyMMddHHmmss.SSSSSS} [%t] [%p] [%c:%L] %m%n
+\ No newline at end of file
+Index: config/ThreadPools.properties
+===================================================================
+--- config/ThreadPools.properties	(revision 13972)
++++ config/ThreadPools.properties	(working copy)
+@@ -2,4 +2,5 @@
+ threadPoolrecharge.maxPoolSize=2
+ threadPoolrecharge.queueCapacity=2
+ threadPoolrecharge.keepAliveSeconds=300
++#threadPoolrecharge.rejectedExecutionHandler=java.util.concurrent.ThreadPoolExecutor$AbortPolicy
+ threadPoolrecharge.rejectedExecutionHandler=java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy
+\ No newline at end of file
+Index: pom.xml
+===================================================================
+--- pom.xml	(revision 14092)
++++ pom.xml	(working copy)
+@@ -232,6 +232,11 @@
+           <artifactId>utils</artifactId>           <version>1.0</version>       </dependency>+      <dependency>+          <groupId>org.springframework</groupId>+          <artifactId>spring-core</artifactId>+          <version>4.2.3.RELEASE</version>+      </dependency>   </dependencies>   <build>     <sourceDirectory>src/main/java</sourceDirectory>Index: src/main/java/com/nnk/coupon/adapter/HandlerOne.java
+===================================================================
+--- src/main/java/com/nnk/coupon/adapter/HandlerOne.java	(revision 14092)
++++ src/main/java/com/nnk/coupon/adapter/HandlerOne.java	(working copy)
+@@ -27,6 +27,7 @@
+     public void sessionClosed(IoSession session) throws Exception {
+         // TODO Auto-generated method stub
+         super.sessionClosed(session);
++        Logger.getLogger(this.getClass()).info("session close");
+     }
+ 
+     @Override
+@@ -34,13 +35,14 @@
+             throws Exception {
+         // TODO Auto-generated method stub
+         super.sessionIdle(session, status);
++
+     }
+ 
+     @Override
+     public void messageSent(IoSession session, Object message) throws Exception {
++        super.messageSent(session, message);
++        Logger.getLogger(this.getClass()).info("send msg：" + message.toString());
+ 
+-        System.out.println("发送数据："+message.toString());
+-        //super.messageSent(session, message);
+     }
+ 
+     @Override
+Index: src/main/java/com/nnk/coupon/adapter/MessgageHandler.java
+===================================================================
+--- src/main/java/com/nnk/coupon/adapter/MessgageHandler.java	(revision 14092)
++++ src/main/java/com/nnk/coupon/adapter/MessgageHandler.java	(working copy)
+@@ -1,8 +1,12 @@
+ package com.nnk.coupon.adapter;
+ 
++import com.nnk.coupon.common.SignSecurityUtlis;
+ import com.nnk.coupon.handler.PharseMessageHandler;
+ import com.nnk.coupon.service.CouponService;
++import com.nnk.coupon.service.GetSignKeyService;
++import com.nnk.interfacetemplate.common.StringUtil;
+ import org.apache.log4j.Logger;
++import org.apache.mina.core.future.WriteFuture;
+ import org.apache.mina.core.service.IoHandlerAdapter;
+ import org.apache.mina.core.session.IdleStatus;
+ import org.apache.mina.core.session.IoSession;
+@@ -62,8 +66,22 @@
+         super.messageReceived(session, message);
+         log.info("reciver msg：" + message.toString());
+         String messageString = message.toString();
++        try {
++            taskExecutor.execute(new PharseMessageHandler(session,messageString,service));
++        } catch (Exception e) {
++            String messageBody = messageString.substring(5, messageString.length());
++            String[] contents = messageBody.split("~");
++            String interfaceName = contents[0];
++            String interfaceVersion = contents[1];
++            String Command = contents[2];
++            String ReqId = contents[3];
++            String merid = contents[4];
++            String resp = interfaceName+"~"+interfaceVersion+"~"+Command+"~"+ReqId+"~2999~其他错误~";
++            ResponseSocket(session,resp,merid);
++            log.error("taskExecutor error：" + message.toString());
++            log.error(e.getMessage(),e);
++        }
+ 
+-        taskExecutor.execute(new PharseMessageHandler(session,messageString,service));
+ 
+     }
+ 
+@@ -70,6 +88,7 @@
+     @Override
+     public void messageSent(IoSession session, Object message) throws Exception {
+         super.messageSent(session, message);
++        log.info("msgsend success");
+     }
+ 
+     @Override
+@@ -76,4 +95,26 @@
+     public void inputClosed(IoSession session) throws Exception {
+         super.inputClosed(session);
+     }
++
++    private void ResponseSocket(IoSession session, String src,String merid) {
++        String meraccount = merid.substring(0, 1) + "00000" + merid.substring(1, merid.length());
++        String key = GetSignKeyService.getSignkey(merid,meraccount);
++        String Sign = SignSecurityUtlis.sign(src, key);
++        String responseBody = src + Sign;
++        String head = StringUtil.fixedStringByzeroL(responseBody.getBytes().length + "", 5);
++        log.info("生成原串：" + src + ",key：" +key + ",响应头head：" + head + ",响应体长度:" + responseBody.getBytes().length);
++        String responseString = head + responseBody;
++        log.info("send:" + responseString);
++        if(session.isActive()){
++            WriteFuture future = session.write(responseString);
++            if(future.isDone()){
++                log.info("send succces");
++            }
++        }else{
++            log.info("客户端已主动关闭连接");
++        }
++    }
++
++
++
+ }
+Index: src/main/java/com/nnk/coupon/codec/CodeFactory.java
+===================================================================
+--- src/main/java/com/nnk/coupon/codec/CodeFactory.java	(revision 14092)
++++ src/main/java/com/nnk/coupon/codec/CodeFactory.java	(working copy)
+@@ -22,19 +22,24 @@
+ 
+     private int maxDataLength = 1024*100;
+ 
++    private ProtocolDecoder decoder = null;
++    private ProtocolEncoder encoder = null;
++
+     public CodeFactory() {
+         this(Charset.forName("GBK"));
+     }
+     public CodeFactory(Charset charset) {
+-
++        decoder = getNewDecoder();
++        encoder = getNewEncoder();
+     }
+ 
+-    public ProtocolDecoder getDecoder(IoSession session) throws Exception {
++    public static ProtocolDecoder getNewDecoder() {
+         return new CumulativeProtocolDecoder(){
+             @Override
+             protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
+ 
+-               //濡傛灉闀垮害澶т簬5
++                //濡傛灉闀垮害澶т簬5
++                logger.info("resv msg len: " + in.remaining());
+                 if(in.remaining() >= 5) {
+                     logger.info("resv msg " + in.toString());
+                     //璁颁綇褰撳墠浣嶇疆
+@@ -55,10 +60,13 @@
+                         String text = lenstr + body;
+                         logger.info("AllMsg:" + text);
+                         out.write(text);
+-                        return true;
++                        if(in.remaining() > 0) {
++                            return true;
++                        }
++                        return false;
+                     }
+                 }
+-               return false;
++                return false;
+             }
+         };
+ 
+@@ -65,7 +73,12 @@
+ 
+ 
+     }
+-    public ProtocolEncoder getEncoder(IoSession session) throws Exception {
++
++    public ProtocolDecoder getDecoder(IoSession session) throws Exception {
++        return decoder;
++    }
++
++    public ProtocolEncoder getNewEncoder() {
+        return new ProtocolEncoderAdapter() {
+            @Override
+            public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
+@@ -79,6 +92,9 @@
+                out.write(buffer);
+            }
+        };
++    }
+ 
++    public ProtocolEncoder getEncoder(IoSession session) throws Exception {
++        return encoder;
+     }
+ }
+Index: src/main/java/com/nnk/coupon/common/Base64Util.java
+===================================================================
+--- src/main/java/com/nnk/coupon/common/Base64Util.java	(revision 13972)
++++ src/main/java/com/nnk/coupon/common/Base64Util.java	(working copy)
+@@ -17,7 +17,8 @@
+ 	public static String encode(String str, String charsetName) {
+ 		String encodeSql = null;
+ 		try {
+-			byte[] enbytes = base64.encode(str.getBytes(charsetName));
++			// byte[] enbytes = base64.encode(str.getBytes(charsetName));
++            byte[] enbytes = new Base64().encode(str.getBytes(charsetName));
+ 			encodeSql = new String(enbytes);
+ 		} catch (UnsupportedEncodingException e) {
+ 		}
+@@ -29,7 +30,8 @@
+ 	}
+ 
+ 	public static String decode(String str, String charsetName) {
+-		byte[] debytes = base64.decode(str.getBytes());
++		// byte[] debytes = base64.decode(str.getBytes());
++        byte[] debytes = new Base64().decode(str.getBytes());
+ 		String decodeSql = null;
+ 		try {
+ 			decodeSql = new String(debytes, charsetName);
+@@ -39,12 +41,14 @@
+ 	}
+ 
+ 	public static byte[] decodeBytes(String str) {
+-		byte[] debytes = base64.decode(str.getBytes());
++		byte[] debytes = new Base64().decode(str.getBytes());
++        // byte[] debytes = base64.decode(str.getBytes());
+ 		return debytes;
+ 	}
+ 
+ 	public static String encodeToString(byte[] binaryData) {
+-		return base64.encodeToString(binaryData);
++		return new Base64().encodeToString(binaryData);
++        // return base64.encodeToString(binaryData);
+ 	}
+ 
+ }
+Index: src/main/java/com/nnk/coupon/handler/PharseMessageHandler.java
+===================================================================
+--- src/main/java/com/nnk/coupon/handler/PharseMessageHandler.java	(revision 14092)
++++ src/main/java/com/nnk/coupon/handler/PharseMessageHandler.java	(working copy)
+@@ -7,6 +7,7 @@
+ import com.nnk.coupon.service.GetSignKeyService;
+ import com.nnk.interfacetemplate.common.StringUtil;
+ import org.apache.log4j.Logger;
++import org.apache.mina.core.future.WriteFuture;
+ import org.apache.mina.core.session.IoSession;
+ 
+ /**
+@@ -30,8 +31,16 @@
+     }
+ 
+     public void handlerMessage(IoSession session, String messageString) {
++
++//        if(Integer.parseInt(messageString.substring(0, 5)) >= 0) {
++//            ResponseSocket(session, messageString);
++//            return;
++//        }
++
++
+         int msglen = Integer.parseInt(messageString.substring(0, 5));
+         log.info("msglen：" + msglen);
++        log.info("msg：" + messageString);
+         String messageBody = messageString.substring(5, messageString.length());
+         String[] contents = messageBody.split("~");
+         String interfaceName = contents[0];
+@@ -72,7 +81,10 @@
+         String responseString = head + responseBody;
+         log.info("send:" + responseString);
+         if(session.isActive()){
+-            session.write(responseString);
++            WriteFuture future = session.write(responseString);
++            if(future.isDone()){
++                log.info("send succces");
++            }
+         }else{
+             log.info("客户端已主动关闭连接");
+         }
+@@ -127,6 +139,7 @@
+             String ReqId = contents[3];
+             String resp = interfaceName+"~"+interfaceVersion+"~"+Command+"~"+ReqId+"~2999~其他错误~";
+             ResponseSocket(session,resp);
++            log.error(ex.getMessage(),ex);
+         } finally {
+             session.closeNow();
+         }
+Index: src/main/java/com/nnk/coupon/service/CouponService.java
+===================================================================
+--- src/main/java/com/nnk/coupon/service/CouponService.java	(revision 13972)
++++ src/main/java/com/nnk/coupon/service/CouponService.java	(working copy)
+@@ -4,9 +4,11 @@
+ import com.nnk.coupon.SystemConfig;
+ import com.nnk.coupon.common.Base64Util;
+ import com.nnk.coupon.common.JsonUtil;
++import com.nnk.coupon.common.StringUtils;
+ import com.nnk.coupon.entity.*;
+ import com.nnk.interfacetemplate.common.StringUtil;
+ import org.apache.log4j.Logger;
++import org.springframework.util.Base64Utils;
+ 
+ import java.util.UUID;
+ 
+@@ -63,6 +65,9 @@
+     public CouponQueryByUserIdResponse queryCouponByUserId(CouponQueryByUserIdRequest request) {
+         log.info("查询优惠券请求根据用户ID：" + request.getMerUserID());
+         String retmsg = sendAndRecieve(systemConfig.getServiceAppname(), "QueryCouponByUser", request);
++        if(StringUtil.isEmpty(retmsg)){
++            log.error(request.getReqID() + "查券返回数据为空");
++        }
+         String[] retmsgContent = retmsg.split(" +");
+         String retjson = retmsgContent[4];
+ 
+@@ -79,8 +84,8 @@
+         String sn = UUID.randomUUID().toString().replace("-", "");
+         String json = JsonUtil.buildJson(msgObj);
+         log.debug("json:" + json);
+-        String  base64Json = Base64Util.encode(json);
+-//        String base64Json = Base64Utils.encodeToString(json.getBytes());
++        String base64Json = Base64Util.encode(json);
++        // String base64Json = Base64Utils.encodeToString(json.getBytes());
+         String msg = sn + " " + encrypt +" "+ base64Json;
+         MsgSrvUtil msgSrvUtil = new MsgSrvUtil("config/msgsrv1.xml");
+         return msgSrvUtil.sendAndRecieve(app, cmd, msg);
+Index: src/main/java/com/nnk/coupon/service/MsgSrvUtil.java
+===================================================================
+--- src/main/java/com/nnk/coupon/service/MsgSrvUtil.java	(revision 13972)
++++ src/main/java/com/nnk/coupon/service/MsgSrvUtil.java	(working copy)
+@@ -15,6 +15,7 @@
+ 
+     public MsgSrvUtil(String path) {
+         this.connector = new MsgSrvShortConnector(path);
++        this.connector.setWaitTime(30000);
+     }
+ 
+     public String sendAndRecieve(String appname ,String cmd ,String msg){
+Index: src/main/java/com/nnk/coupon/test/ClientTst.java
+===================================================================
+--- src/main/java/com/nnk/coupon/test/ClientTst.java	(revision 14092)
++++ src/main/java/com/nnk/coupon/test/ClientTst.java	(working copy)
+@@ -4,6 +4,8 @@
+ import com.nnk.coupon.codec.CodeFactory;
+ import com.nnk.coupon.common.SignSecurityUtlis;
+ import com.nnk.interfacetemplate.common.StringUtil;
++import org.apache.log4j.Logger;
++import org.apache.log4j.PropertyConfigurator;
+ import org.apache.mina.core.future.ConnectFuture;
+ import org.apache.mina.filter.codec.ProtocolCodecFilter;
+ import org.apache.mina.filter.logging.LoggingFilter;
+@@ -22,22 +24,51 @@
+  */
+ public class ClientTst {
+     public static void main(String[] args) {
+-        NioSocketConnector connector = new NioSocketConnector();
++        PropertyConfigurator.configure("config/log4j.properties");
++        System.out.println("=========================================================");
++        final NioSocketConnector connector = new NioSocketConnector();
+         connector.getFilterChain().addLast( "logger", new LoggingFilter() );
+         connector.getFilterChain().addLast( "codec", new ProtocolCodecFilter(new CodeFactory())); //设置编码过滤器
+         connector.setHandler(new HandlerOne());//设置事件处理器
+-        ConnectFuture cf = connector.connect(
+-                new InetSocketAddress("127.0.0.1", 8888 ));//建立连接
+-        cf.awaitUninterruptibly();//等待连接创建完成
+-        String rand = com.nnk.coupon.common.DateUtil.format(new Date());
+-        String sign =SignSecurityUtlis.sign("007KA_COUPON~1.1.0.0.1~002~"+rand+"~1200000232~UIpX79bi59SPrerVwsxGCOEQIr2I0=~13267191379~2~500~20160617093124~","lk839u45lqzf");
+-        String msg ="007KA_COUPON~1.1.0.0.1~002~"+rand+"~1200000232~UIpX79bi59SPrerVwsxGCOEQIr2I0=~13267191379~2~500~20160617093124~"+sign;
+-        String head = StringUtil.fixedStringByzeroL(msg.length() + "", 5);
+-        System.out.println(head);
+-        cf.getSession().write(head + "007KA_COUPON~1.1.0.0.1~002~"+rand+"~1200000232~UIpX79bi59SPrerVwsxGCOEQIr2I0=~13267191379~2~500~20160617093124~"+sign);//发送消息
++//        final ConnectFuture cf = connector.connect(
++//                new InetSocketAddress("127.0.0.1", 8888 ));//建立连接
++//        cf.awaitUninterruptibly();//等待连接创建完成
++        for (int i = 0; i < 50 ; i++) {
++            new Thread(new Runnable(){
+ 
++                @Override
++                public void run() {
++                    String rand = com.nnk.coupon.common.DateUtil.format(new Date());
++                    String sign =SignSecurityUtlis.sign("007KA_COUPON~1.1.0.0.1~002~"+rand+"~1200000232~UIpX79bi59SPrerVwsxGCOEQIr2I0=~13267191379~2~500~20160617093124~","lk839u45lqzf");
++                    String msg ="007KA_COUPON~1.1.0.0.1~002~"+rand+"~1200000232~UIpX79bi59SPrerVwsxGCOEQIr2I0=~13267191379~2~500~20160617093124~"+sign;
++                    String head = StringUtil.fixedStringByzeroL(msg.length() + "", 5);
++                    System.out.println(head);
++                    ConnectFuture cf = connector.connect(
++                            new InetSocketAddress("127.0.0.1", 8888 ));//建立连接
++                    cf.awaitUninterruptibly();//等待连接创建完成
++
++                    cf.getSession().write(head + "007KA_COUPON~1.1.0.0.1~002~" + rand + "~1200000232~UIpX79bi59SPrerVwsxGCOEQIr2I0=~13267191379~2~500~20160617093124~" + sign);//发送消息
++                    Logger.getLogger(this.getClass()).info("SENT:SUCCESS");
++
++                    try
++                    {
++                        Thread.sleep(1000 * 10);
++                    } catch (Exception e) {
++                    }
++                }
++            }).start();
++
++        }
++
++
+ //        cf.getSession().close(true);
+ //        cf.getSession().getCloseFuture().awaitUninterruptibly();//等待连接断开
+ //        connector.dispose();
++
++        try
++        {
++            Thread.sleep(1000 * 300);
++        } catch (Exception e) {
++        }
+     }
+ }
+Index: src/main/resources/context/bean.xml
+===================================================================
+--- src/main/resources/context/bean.xml	(revision 13972)
++++ src/main/resources/context/bean.xml	(working copy)
+@@ -65,11 +65,10 @@
+           class="org.apache.mina.transport.socket.nio.NioSocketAcceptor"
+           init-method="bind" destroy-method="unbind">
+ 
+-    <property name="defaultLocalAddress" value="${SocketPort}" />
+-        <property name="handler" ref="SampleHandler" />
+-        <property name="filterChainBuilder" ref="filterChainBuilder" />
+-        <property name="reuseAddress" value="true" />
+-
++            <property name="defaultLocalAddress" value="${SocketPort}" />
++            <property name="handler" ref="SampleHandler" />
++            <property name="filterChainBuilder" ref="filterChainBuilder" />
++            <property name="reuseAddress" value="true" />
+     </bean>
+     <bean id="executorFilter"
+           class="org.apache.mina.filter.executor.ExecutorFilter" />
+Index: src/main/test/java/demo/ClientTst.java
+===================================================================
+--- src/main/test/java/demo/ClientTst.java	(revision 13972)
++++ src/main/test/java/demo/ClientTst.java	(working copy)
+@@ -1,5 +1,6 @@
+ package demo;
+ 
++import org.apache.log4j.PropertyConfigurator;
+ import org.apache.mina.core.future.ConnectFuture;
+ import org.apache.mina.filter.codec.ProtocolCodecFilter;
+ import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
+@@ -8,6 +9,7 @@
+ 
+ import java.net.InetSocketAddress;
+ import java.nio.charset.Charset;
++import java.util.Properties;
+ 
+ /**
+  * Created with IntelliJ IDEA.
+@@ -19,6 +21,7 @@
+  */
+ public class ClientTst {
+     public static void main(String[] args) {
++        PropertyConfigurator.configure("config/log4j.properties");
+         // 创建客户端连接器.
+         NioSocketConnector connector = new NioSocketConnector();
+         connector.getFilterChain().addLast( "logger", new LoggingFilter() );
